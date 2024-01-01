@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head> 
+    <meta charset="utf-8"> 
+    <title>心</title> 
+</head>
+
+<body>
+
+    <canvas id="myCanvas" width="600" height="600" style="border:1px solid #c3c3c3;">
+        您的浏览器不支持 HTML5 canvas 标签。
+    </canvas>
+
+    <script>
+
+        function heartPath(r, dx, dy, c) {
+
+            for (i = 0; i < 6.29; i += 0.05) {
+                d = Math.sin(i) * Math.sqrt(Math.abs(Math.cos(i))) / (Math.sin(i) + Math.sqrt(2)) - 2 * Math.sin(i) + 2
+                x = d * Math.cos(i);
+                y = - d * Math.sin(i);
+                console.log(x, y);
+                var c = document.getElementById("myCanvas");
+                var ctx = c.getContext("2d");
+                ctx.fillStyle = "#d05667";
+                ctx.fillRect(dx + r * x, dy + r * y, 4, 4);
+            }
+        }
+
+        function fps(w, q) {
+            setTimeout(function () {
+                var c = document.getElementById("myCanvas");
+                var ctx = c.getContext("2d");
+                ctx.clearRect(0, 0, c.width, c.height);
+                ctx.fillStyle = "black";
+                ctx.fillRect(0, 0, c.width, c.height);
+                heartPath(w, 300, 100, 0)
+                if (w >= 100 || w < 50) {
+                    q = -q;
+                }
+                fps(w + q, q)
+            }, 10);
+        }
+        fps(50, 1);
+
+
+
+    </script>
+
+</body>
+
+</html>
